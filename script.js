@@ -1,113 +1,73 @@
-const API_BASE_URL = 'http://localhost:8000/api';
-let productosCache = [];
-let serviciosCache = [];
+let productosCache = productosDB;
+let serviciosCache = serviciosDB;
 
-async function cargarProductos(filtro = 'all') {
+function cargarProductos(filtro = 'all') {
     const productosGrid = document.getElementById('productos-grid');
-    productosGrid.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Cargando productos...</p>';
-
-    try {
-        let url = `${API_BASE_URL}/productos/`;
-        if (filtro !== 'all') {
-            url += `?categoria__nombre=${filtro}`;
-        }
-
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error('Error al cargar productos');
-        }
-
-        const data = await response.json();
-        const productos = data.results || data;
-        
-        productosCache = productos;
-        productosGrid.innerHTML = '';
-
-        if (productos.length === 0) {
-            productosGrid.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No hay productos disponibles en esta categoría.</p>';
-            return;
-        }
-
-        productos.forEach(producto => {
-            const card = document.createElement('div');
-            card.className = 'producto-card';
-            card.setAttribute('data-categoria', producto.categoria_nombre);
-            
-            const featuresHTML = producto.features && producto.features.length > 0
-                ? producto.features.map(f => `<li>${f.descripcion}</li>`).join('')
-                : '<li>Información próximamente</li>';
-            
-            card.innerHTML = `
-                <div class="producto-icon">${producto.icon}</div>
-                <h3>${producto.nombre}</h3>
-                <span class="producto-category">${(producto.categoria_display || producto.categoria_nombre).toUpperCase()}</span>
-                <p>${producto.descripcion}</p>
-                <div class="producto-precio">${producto.precio}</div>
-                <ul class="producto-features">
-                    ${featuresHTML}
-                </ul>
-                <button class="btn btn-primary" onclick="verDetalles(${producto.id})">Ver Detalles</button>
-            `;
-            
-            productosGrid.appendChild(card);
-        });
-    } catch (error) {
-        console.error('Error al cargar productos:', error);
-        productosGrid.innerHTML = `
-            <p style="text-align: center; color: var(--warning-color);">
-                ⚠️ Error al cargar productos. Asegúrate de que el servidor Django esté ejecutándose en ${API_BASE_URL}
-                <br><br>
-                <button class="btn btn-secondary" onclick="cargarProductos('all')">Reintentar</button>
-            </p>
-        `;
+    
+    let productos = productosDB;
+    if (filtro !== 'all') {
+        productos = productosDB.filter(p => p.categoria === filtro);
     }
+    
+    productosCache = productos;
+    productosGrid.innerHTML = '';
+
+    if (productos.length === 0) {
+        productosGrid.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No hay productos disponibles en esta categoría.</p>';
+        return;
+    }
+
+    productos.forEach(producto => {
+        const card = document.createElement('div');
+        card.className = 'producto-card';
+        card.setAttribute('data-categoria', producto.categoria);
+        
+        const featuresHTML = producto.features && producto.features.length > 0
+            ? producto.features.map(f => `<li>${f}</li>`).join('')
+            : '<li>Información próximamente</li>';
+        
+        card.innerHTML = `
+            <div class="producto-icon">${producto.icon}</div>
+            <h3>${producto.nombre}</h3>
+            <span class="producto-category">${producto.categoria.toUpperCase()}</span>
+            <p>${producto.descripcion}</p>
+            <div class="producto-precio">${producto.precio}</div>
+            <ul class="producto-features">
+                ${featuresHTML}
+            </ul>
+            <button class="btn btn-primary" onclick="verDetalles(${producto.id})">Ver Detalles</button>
+        `;
+        
+        productosGrid.appendChild(card);
+    });
 }
 
-async function cargarServicios() {
+function cargarServicios() {
     const serviciosGrid = document.getElementById('servicios-grid');
-    serviciosGrid.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Cargando servicios...</p>';
+    
+    const servicios = serviciosDB;
+    serviciosCache = servicios;
+    serviciosGrid.innerHTML = '';
 
-    try {
-        const response = await fetch(`${API_BASE_URL}/servicios/`);
-        if (!response.ok) {
-            throw new Error('Error al cargar servicios');
-        }
-
-        const data = await response.json();
-        const servicios = data.results || data;
-        
-        serviciosCache = servicios;
-        serviciosGrid.innerHTML = '';
-
-        if (servicios.length === 0) {
-            serviciosGrid.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No hay servicios disponibles.</p>';
-            return;
-        }
-
-        servicios.forEach(servicio => {
-            const card = document.createElement('div');
-            card.className = 'servicio-card';
-            
-            card.innerHTML = `
-                <span class="servicio-icon">${servicio.icon}</span>
-                <h3>${servicio.nombre}</h3>
-                <p>${servicio.descripcion}</p>
-                <div class="servicio-precio">${servicio.precio}</div>
-                <button class="btn btn-secondary" onclick="contactarServicio('${servicio.nombre}', ${servicio.id})">Solicitar Cotización</button>
-            `;
-            
-            serviciosGrid.appendChild(card);
-        });
-    } catch (error) {
-        console.error('Error al cargar servicios:', error);
-        serviciosGrid.innerHTML = `
-            <p style="text-align: center; color: var(--warning-color);">
-                ⚠️ Error al cargar servicios. Asegúrate de que el servidor Django esté ejecutándose en ${API_BASE_URL}
-                <br><br>
-                <button class="btn btn-secondary" onclick="cargarServicios()">Reintentar</button>
-            </p>
-        `;
+    if (servicios.length === 0) {
+        serviciosGrid.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No hay servicios disponibles.</p>';
+        return;
     }
+
+    servicios.forEach(servicio => {
+        const card = document.createElement('div');
+        card.className = 'servicio-card';
+        
+        card.innerHTML = `
+            <span class="servicio-icon">${servicio.icon}</span>
+            <h3>${servicio.nombre}</h3>
+            <p>${servicio.descripcion}</p>
+            <div class="servicio-precio">${servicio.precio}</div>
+            <button class="btn btn-secondary" onclick="contactarServicio('${servicio.nombre}', ${servicio.id})">Solicitar Cotización</button>
+        `;
+        
+        serviciosGrid.appendChild(card);
+    });
 }
 
 function setupFiltros() {
@@ -124,31 +84,25 @@ function setupFiltros() {
     });
 }
 
-async function verDetalles(productoId) {
-    try {
-        const response = await fetch(`${API_BASE_URL}/productos/${productoId}/`);
-        if (!response.ok) {
-            throw new Error('Error al cargar detalles');
-        }
-
-        const producto = await response.json();
-        const features = producto.features && producto.features.length > 0
-            ? producto.features.map(f => `• ${f.descripcion}`).join('\n')
-            : '• Información próximamente';
-
-        alert(
-            `${producto.nombre}\n\n` +
-            `Categoría: ${producto.categoria_display}\n` +
-            `Precio: ${producto.precio}\n\n` +
-            `${producto.descripcion}\n\n` +
-            `Características:\n${features}\n\n` +
-            (producto.fabricante ? `Fabricante: ${producto.fabricante}\n` : '') +
-            (producto.stock > 0 ? `Stock disponible: ${producto.stock}` : 'Consultar disponibilidad')
-        );
-    } catch (error) {
-        console.error('Error al cargar detalles:', error);
-        alert('Error al cargar los detalles del producto');
+function verDetalles(productoId) {
+    const producto = productosDB.find(p => p.id === productoId);
+    
+    if (!producto) {
+        alert('Producto no encontrado');
+        return;
     }
+    
+    const features = producto.features && producto.features.length > 0
+        ? producto.features.map(f => `• ${f}`).join('\n')
+        : '• Información próximamente';
+
+    alert(
+        `${producto.nombre}\n\n` +
+        `Categoría: ${producto.categoria.toUpperCase()}\n` +
+        `Precio: ${producto.precio}\n\n` +
+        `${producto.descripcion}\n\n` +
+        `Características:\n${features}`
+    );
 }
 
 function contactarServicio(nombreServicio, servicioId = null) {
@@ -243,64 +197,18 @@ function setupHeaderScroll() {
 function setupFormulario() {
     const form = document.querySelector('.contacto-form');
     
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
         
         const nombre = form.querySelector('input[type="text"]').value;
         const email = form.querySelector('input[type="email"]').value;
-        const telefono = form.querySelector('input[type="tel"]').value;
         const mensaje = form.querySelector('textarea').value;
         
-        const servicioId = form.getAttribute('data-servicio-id');
-        const productoId = form.getAttribute('data-producto-id');
+        alert(`¡Gracias ${nombre}!\n\nHemos recibido tu mensaje y nos pondremos en contacto contigo pronto.\n\nDatos recibidos:\n📧 Email: ${email}\n💬 Mensaje: ${mensaje}`);
         
-        const contactoData = {
-            nombre,
-            email,
-            telefono: telefono || '',
-            mensaje
-        };
-        
-        if (servicioId) {
-            contactoData.servicio_interes = parseInt(servicioId);
-        }
-        if (productoId) {
-            contactoData.producto_interes = parseInt(productoId);
-        }
-        
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.textContent;
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Enviando...';
-        
-        try {
-            const response = await fetch(`${API_BASE_URL}/contactos/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(contactoData)
-            });
-            
-            if (!response.ok) {
-                throw new Error('Error al enviar el mensaje');
-            }
-            
-            const result = await response.json();
-            
-            alert(`¡Gracias ${nombre}!\n\n${result.message || 'Hemos recibido tu mensaje y nos pondremos en contacto contigo pronto.'}`);
-            
-            form.reset();
-            form.removeAttribute('data-servicio-id');
-            form.removeAttribute('data-producto-id');
-            
-        } catch (error) {
-            console.error('Error al enviar contacto:', error);
-            alert('Error al enviar el mensaje. Por favor, intenta nuevamente o contáctanos directamente por email.');
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalText;
-        }
+        form.reset();
+        form.removeAttribute('data-servicio-id');
+        form.removeAttribute('data-producto-id');
     });
 }
 
@@ -367,7 +275,6 @@ function setupBusqueda() {
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🚀 Iniciando aplicación TI Digital...');
-    console.log(`🔗 Conectando con API: ${API_BASE_URL}`);
     
     cargarProductos('all');
     cargarServicios();
@@ -384,8 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animarContadores();
     }, 300);
     
-    console.log('✅ Aplicación inicializada');
-    console.log('💡 Tip: Asegúrate de que el servidor Django esté ejecutándose en http://localhost:8000');
+    console.log('✅ Aplicación inicializada correctamente');
 });
 
 window.addEventListener('scroll', () => {
