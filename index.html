@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comercialización Digital de Productos y Servicios TI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">
+                    <h1>TI Digital</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#estrategias">Estrategias</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Soluciones Tecnológicas para el Futuro Digital</h2>
+                <p>Descubre los mejores productos y servicios de TI con estrategias de comercialización digital comprobadas</p>
+                <div class="hero-buttons">
+                    <a href="#productos" class="btn btn-primary">Ver Productos</a>
+                    <a href="#estrategias" class="btn btn-secondary">Estrategias de Venta</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="productos" class="productos-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Productos de TI Actuales</h2>
+                <p>Las mejores soluciones tecnológicas del mercado</p>
+            </div>
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="hardware">Hardware</button>
+                <button class="filter-btn" data-filter="software">Software</button>
+                <button class="filter-btn" data-filter="cloud">Cloud</button>
+                <button class="filter-btn" data-filter="seguridad">Seguridad</button>
+            </div>
+
+            <div id="productos-grid" class="productos-grid"></div>
+        </div>
+    </section>
+
+    <section id="servicios" class="servicios-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Servicios de TI</h2>
+                <p>Soluciones profesionales para tu negocio</p>
+            </div>
+
+            <div id="servicios-grid" class="servicios-grid"></div>
+        </div>
+    </section>
+
+    <section id="estrategias" class="estrategias-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Estrategias de Comercialización Digital</h2>
+                <p>Métodos comprobados para maximizar tus ventas en línea</p>
+            </div>
+
+            <div class="estrategias-grid">
+                <div class="estrategia-card">
+                    <div class="icon">🎯</div>
+                    <h3>Marketing de Contenidos</h3>
+                    <p>Crea contenido valioso que atraiga y eduque a tu audiencia. El 70% de los consumidores prefieren conocer empresas a través de artículos en lugar de anuncios.</p>
+                    <ul class="estrategia-list">
+                        <li>Blogs técnicos y tutoriales</li>
+                        <li>Videos demostrativos</li>
+                        <li>Infografías y guías</li>
+                        <li>Webinars educativos</li>
+                    </ul>
+                    <div class="result">ROI: +400% en engagement</div>
+                </div>
+
+                <div class="estrategia-card">
+                    <div class="icon">📱</div>
+                    <h3>SEO y SEM</h3>
+                    <p>Optimización para motores de búsqueda que aumenta la visibilidad. El 93% de las experiencias online comienzan con un buscador.</p>
+                    <ul class="estrategia-list">
+                        <li>Investigación de palabras clave</li>
+                        <li>Optimización on-page</li>
+                        <li>Link building estratégico</li>
+                        <li>Google Ads y PPC</li>
+                    </ul>
+                    <div class="result">Conversión: +250% en tráfico orgánico</div>
+                </div>
+
+                <div class="estrategia-card">
+                    <div class="icon">💬</div>
+                    <h3>Redes Sociales</h3>
+                    <p>Presencia activa en plataformas donde está tu audiencia. El 54% de los usuarios investigan productos en redes sociales.</p>
+                    <ul class="estrategia-list">
+                        <li>LinkedIn para B2B</li>
+                        <li>Twitter para engagement</li>
+                        <li>YouTube para demos</li>
+                        <li>Instagram para branding</li>
+                    </ul>
+                    <div class="result">Alcance: +300% en interacciones</div>
+                </div>
+
+                <div class="estrategia-card">
+                    <div class="icon">✉️</div>
+                    <h3>Email Marketing</h3>
+                    <p>Campañas personalizadas con alto ROI. Por cada $1 invertido, el retorno promedio es de $42.</p>
+                    <ul class="estrategia-list">
+                        <li>Segmentación de audiencia</li>
+                        <li>Automatización de correos</li>
+                        <li>A/B testing</li>
+                        <li>Nurturing de leads</li>
+                    </ul>
+                    <div class="result">ROI: +4200% retorno promedio</div>
+                </div>
+
+                <div class="estrategia-card">
+                    <div class="icon">🤝</div>
+                    <h3>Marketing de Influencers</h3>
+                    <p>Colaboraciones con líderes de opinión en tecnología. El 89% de los marketers afirma que el ROI es comparable o mejor que otros canales.</p>
+                    <ul class="estrategia-list">
+                        <li>Tech reviewers y YouTubers</li>
+                        <li>Bloggers especializados</li>
+                        <li>Micro-influencers</li>
+                        <li>Programas de embajadores</li>
+                    </ul>
+                    <div class="result">Confianza: +92% en recomendaciones</div>
+                </div>
+
+                <div class="estrategia-card">
+                    <div class="icon">📊</div>
+                    <h3>Marketing de Datos</h3>
+                    <p>Decisiones basadas en análisis profundo. Las empresas data-driven son 23 veces más propensas a adquirir clientes.</p>
+                    <ul class="estrategia-list">
+                        <li>Google Analytics</li>
+                        <li>Customer journey mapping</li>
+                        <li>Predictive analytics</li>
+                        <li>Personalización en tiempo real</li>
+                    </ul>
+                    <div class="result">Eficiencia: +230% en conversión</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">87%</div>
+                    <div class="stat-label">De compradores investigan online antes de comprar</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$4.9T</div>
+                    <div class="stat-label">Mercado global de e-commerce en 2024</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">73%</div>
+                    <div class="stat-label">De empresas usan IA para marketing</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2.64B</div>
+                    <div class="stat-label">Usuarios activos en redes sociales</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>¿Listo para Transformar tu Negocio Digital?</h2>
+            <p>Implementa estas estrategias y lleva tus ventas al siguiente nivel</p>
+            <a href="#contacto" class="btn btn-primary">Comenzar Ahora</a>
+        </div>
+    </section>
+
+    <section id="contacto" class="contacto-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contacto</h2>
+                <p>Estamos aquí para ayudarte</p>
+            </div>
+            <div class="contacto-content">
+                <form class="contacto-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Teléfono">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Mensaje" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                </form>
+                <div class="contacto-info">
+                    <div class="info-item">
+                        <h3>📧 Email</h3>
+                        <p>info@tidigital.com</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>📱 Teléfono</h3>
+                        <p>+52 (55) 1234-5678</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>📍 Ubicación</h3>
+                        <p>Ciudad de México, México</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TI Digital</h3>
+                    <p>Soluciones tecnológicas y estrategias de comercialización digital para el éxito de tu negocio.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="#productos">Productos</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#estrategias">Estrategias</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Redes Sociales</h4>
+                    <div class="social-links">
+                        <a href="#">LinkedIn</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TI Digital. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

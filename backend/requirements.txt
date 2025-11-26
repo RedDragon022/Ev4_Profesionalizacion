@@ -1,0 +1,10 @@
+# Backend Django - Productos y Servicios TI
+
+# Dependencias principales
+Django>=4.2.0,<5.0.0
+djangorestframework>=3.14.0
+django-cors-headers>=4.3.0
+django-filter>=23.3  # Para filtros avanzados
+psycopg2-binary>=2.9.9  # Para PostgreSQL (opcional)
+python-decouple>=3.8  # Para variables de entorno
+pillow>=10.1.0  # Para manejo de imágenes
